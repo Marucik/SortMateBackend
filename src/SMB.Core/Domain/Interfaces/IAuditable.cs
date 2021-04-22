@@ -1,8 +1,10 @@
+using System;
+
 namespace SMB.Core.Domain
 {
-	public class IAuditable
+	public interface IAuditable
 	{
-		public DateTimeOffset CreatedAt { get; set; }
-		public DateTimeOffset ModifiedAt { get; set; }
+		DateTimeOffset CreatedAt { get; }
+		DateTimeOffset ModifiedAt { get; }
 	}
 }
