@@ -1,7 +1,9 @@
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
 using SMB.Core.Domain;
 using SMB.Infrastructure.Mongo;
@@ -27,12 +29,20 @@ namespace SMB.Infrastructure.Repositories
 				return new MongoClient(mongoSettings.ConnectionString);
 			});
 
+			BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.String));
+
 			BsonClassMap.RegisterClassMap<Product>(cm =>
 			{
 				cm.AutoMap();
 			});
 
+			BsonClassMap.RegisterClassMap<SegregationType>(cm =>
+			{
+				cm.AutoMap();
+			});
+
 			services.AddScoped<IProductRepository, ProductRepository>();
+			services.AddScoped<ISegregationTypeRepository, SegregationTypeRepository>();
 		}
 
 	}

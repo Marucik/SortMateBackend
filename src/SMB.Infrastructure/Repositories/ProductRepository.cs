@@ -1,6 +1,9 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using SMB.Core.Domain;
 using SMB.Infrastructure.Mongo;
 
@@ -23,9 +26,9 @@ namespace SMB.Infrastructure.Repositories
 			return await _collection.AsQueryable().ToListAsync();
 		}
 
-		public Task<IProduct> GetByCodeAsync(string code)
+		public async Task<Product> GetByCodeAsync(string code)
 		{
-			throw new System.NotImplementedException();
+			return await _collection.AsQueryable().Where(x => x.Code == code).FirstAsync();
 		}
 
 		public async Task InsertAsync(Product entity)
