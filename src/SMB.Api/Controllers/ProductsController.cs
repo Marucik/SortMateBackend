@@ -22,11 +22,27 @@ namespace SMB.Api.Controllers
 		[HttpGet]
 		public async Task<IEnumerable<ProductDto>> GetProducts()
 		{
-			// return await _productRepository.GetAllAsync();
 			var products = await _productRepository.GetAllAsync();
 			var productsDto = products.Select(x => ProductDto.FromProduct(x));
 
 			return productsDto;
+		}
+
+		[HttpGet]
+		[Route("{code}")]
+		public async Task<ActionResult<ProductDto>> GetProductByCode(string code)
+		{
+			try
+			{
+				var product = await _productRepository.GetByCodeAsync(code);
+				var productDto = ProductDto.FromProduct(product);
+
+				return productDto;
+			}
+			catch (System.Exception)
+			{
+				return NotFound();
+			}
 		}
 
 		[HttpPost]

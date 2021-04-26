@@ -29,6 +29,7 @@ namespace SMB.Api
 		{
 
 			services.AddControllers();
+			services.AddRouting(x => x.LowercaseUrls = true);
 			services.AddSwaggerGen(c =>
 			{
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "SMB.Api", Version = "v1" });
