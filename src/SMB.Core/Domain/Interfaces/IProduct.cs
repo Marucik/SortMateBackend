@@ -10,7 +10,5 @@ namespace SMB.Core.Domain
 		string Code { get; set; }
 		string Description { get; set; }
 		IEnumerable<string> SegregationTypes { get; set; }
-		DateTimeOffset CreatedAt { get; }
-		DateTimeOffset ModifiedAt { get; }
 	}
 }
