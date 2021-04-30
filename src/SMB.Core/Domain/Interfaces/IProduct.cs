@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace SMB.Core.Domain
+namespace SMB.Core.Domain.Interfaces
 {
 	public interface IProduct
 	{

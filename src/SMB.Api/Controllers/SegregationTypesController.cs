@@ -20,7 +20,7 @@ namespace SMB.Api.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IEnumerable<SegregationTypeDto>> GetProducts()
+		public async Task<IEnumerable<SegregationTypeDto>> GetSegregations()
 		{
 			var segregationTypes = await _segregationTypeRepositoty.GetAllAsync();
 			var productsDto = segregationTypes.Select(x => SegregationTypeDto.FromSegregationType(x));
@@ -29,7 +29,7 @@ namespace SMB.Api.Controllers
 		}
 
 		[HttpPost]
-		public async Task InsertProduct(SegregationTypeDto entity)
+		public async Task InsertSegregation(NewSegregationTypeDto entity)
 		{
 			var segregationType = new SegregationType(entity.Name);
 			await _segregationTypeRepositoty.InsertAsync(segregationType);

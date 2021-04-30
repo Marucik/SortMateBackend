@@ -1,4 +1,5 @@
 using System;
+using SMB.Core.Domain.Interfaces;
 
 namespace SMB.Core.Domain
 {

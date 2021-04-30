@@ -20,13 +20,11 @@ namespace SMB.Infrastructure.Repositories
 		public async Task<IEnumerable<SegregationType>> GetAllAsync()
 		{
 			return await _collection.AsQueryable().ToListAsync();
-
 		}
 
 		public async Task InsertAsync(SegregationType entity)
 		{
 			await _collection.InsertOneAsync(entity);
-
 		}
 	}
 }

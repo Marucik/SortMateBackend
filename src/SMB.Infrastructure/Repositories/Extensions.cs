@@ -6,6 +6,7 @@ using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
 using SMB.Core.Domain;
+using SMB.Core.Domain.ProductRequest;
 using SMB.Infrastructure.Mongo;
 
 namespace SMB.Infrastructure.Repositories
@@ -37,6 +38,11 @@ namespace SMB.Infrastructure.Repositories
 			});
 
 			BsonClassMap.RegisterClassMap<SegregationType>(cm =>
+			{
+				cm.AutoMap();
+			});
+
+			BsonClassMap.RegisterClassMap<ProductRequest>(cm =>
 			{
 				cm.AutoMap();
 			});
