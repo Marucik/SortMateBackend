@@ -7,28 +7,28 @@ using SMB.Infrastructure.Repositories;
 
 namespace SMB.Api.Controllers
 {
-	[Route("api/product-requests")]
-	[ApiController]
-	public class ProductRequestsController : Controller
-	{
-		private IProductRequestRepository _productRequestRepository;
+  [Route("api/product-requests")]
+  [ApiController]
+  public class ProductRequestsController : Controller
+  {
+    private IProductRequestRepository _productRequestRepository;
 
-		public ProductRequestsController(IProductRequestRepository productRequestRepository)
-		{
-			_productRequestRepository = productRequestRepository;
-		}
+    public ProductRequestsController(IProductRequestRepository productRequestRepository)
+    {
+      _productRequestRepository = productRequestRepository;
+    }
 
-		[HttpGet]
-		public async Task<IEnumerable<ProductRequest>> GetProductRequests()
-		{
-			return await _productRequestRepository.GetAllAsync();
-		}
+    [HttpGet]
+    public async Task<IEnumerable<ProductRequest>> GetProductRequests()
+    {
+      return await _productRequestRepository.GetAllAsync();
+    }
 
-		[HttpPost]
-		public async Task InsertProductRequest(NewProductRequestDto entity)
-		{
-			var productRequest = new ProductRequest(entity.Name, entity.Code, entity.Description, entity.SegregationTypes, entity.ProductImage);
-			await _productRequestRepository.InsertAsync(productRequest);
-		}
-	}
+    [HttpPost]
+    public async Task InsertProductRequest(NewProductRequestDto entity)
+    {
+      var productRequest = new ProductRequest(entity.Name, entity.Code, entity.Description, entity.SegregationType);
+      await _productRequestRepository.InsertAsync(productRequest);
+    }
+  }
 }

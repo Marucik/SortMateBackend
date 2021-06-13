@@ -8,31 +8,31 @@ using SMB.Infrastructure.Repositories;
 
 namespace SMB.Api.Controllers
 {
-	[Route("api/segregation-types")]
-	[ApiController]
-	public class SegregationTypesController : Controller
-	{
-		private readonly ISegregationTypeRepository _segregationTypeRepositoty;
+  [Route("api/segregation-types")]
+  [ApiController]
+  public class SegregationTypesController : Controller
+  {
+    private readonly ISegregationTypeRepository _segregationTypeRepositoty;
 
-		public SegregationTypesController(ISegregationTypeRepository segregationTypeRepositoty)
-		{
-			_segregationTypeRepositoty = segregationTypeRepositoty;
-		}
+    public SegregationTypesController(ISegregationTypeRepository segregationTypeRepositoty)
+    {
+      _segregationTypeRepositoty = segregationTypeRepositoty;
+    }
 
-		[HttpGet]
-		public async Task<IEnumerable<SegregationTypeDto>> GetSegregations()
-		{
-			var segregationTypes = await _segregationTypeRepositoty.GetAllAsync();
-			var productsDto = segregationTypes.Select(x => SegregationTypeDto.FromSegregationType(x));
+    [HttpGet]
+    public async Task<IEnumerable<SegregationTypeDto>> GetSegregations()
+    {
+      var segregationTypes = await _segregationTypeRepositoty.GetAllAsync();
+      var productsDto = segregationTypes.Select(x => SegregationTypeDto.FromSegregationType(x));
 
-			return productsDto;
-		}
+      return productsDto;
+    }
 
-		[HttpPost]
-		public async Task InsertSegregation(NewSegregationTypeDto entity)
-		{
-			var segregationType = new SegregationType(entity.Name);
-			await _segregationTypeRepositoty.InsertAsync(segregationType);
-		}
-	}
+    [HttpPost]
+    public async Task InsertSegregation(NewSegregationTypeDto entity)
+    {
+      var segregationType = new SegregationType(entity.Name);
+      await _segregationTypeRepositoty.InsertAsync(segregationType);
+    }
+  }
 }
