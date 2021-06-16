@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using SMB.Core.Domain;
 using SMB.Core.Domain.ProductRequest;
 using SMB.Infrastructure.Dto;
 using SMB.Infrastructure.Repositories;
@@ -12,10 +14,12 @@ namespace SMB.Api.Controllers
   public class ProductRequestsController : Controller
   {
     private IProductRequestRepository _productRequestRepository;
+    private IProductRepository _productRepository;
 
-    public ProductRequestsController(IProductRequestRepository productRequestRepository)
+    public ProductRequestsController(IProductRequestRepository productRequestRepository, IProductRepository productRepository)
     {
       _productRequestRepository = productRequestRepository;
+      _productRepository = productRepository;
     }
 
     [HttpGet]
@@ -29,6 +33,14 @@ namespace SMB.Api.Controllers
     {
       var productRequest = new ProductRequest(entity.Name, entity.Code, entity.Description, entity.SegregationType);
       await _productRequestRepository.InsertAsync(productRequest);
+    }
+
+    [HttpPost]
+    [Route("{id}:accept")]
+    public async Task AcceptProductRequest(Guid id)
+    {
+      var acceptedProduct = await _productRequestRepository.FindAndDeleteByIdAsync(id);
+      await _productRepository.InsertAsync(new Product(acceptedProduct));
     }
   }
 }

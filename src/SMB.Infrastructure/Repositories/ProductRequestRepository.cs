@@ -29,9 +29,9 @@ namespace SMB.Infrastructure.Repositories
       await _collection.InsertOneAsync(entity);
     }
 
-    public async Task DeleteByIdAsync(Guid id)
+    public async Task<ProductRequest> FindAndDeleteByIdAsync(Guid id)
     {
-      await _collection.DeleteOneAsync(x => x.Id == id);
+      return await _collection.FindOneAndDeleteAsync(x => x.Id == id);
     }
   }
 }

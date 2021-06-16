@@ -25,5 +25,16 @@ namespace SMB.Core.Domain
       CreatedAt = DateTime.Now;
       ModifiedAt = DateTime.Now;
     }
+
+    public Product(IProductRequest productRequest)
+    {
+      Id = Guid.NewGuid();
+      Name = productRequest.Name;
+      Code = productRequest.Code;
+      Description = productRequest.Description;
+      SegregationType = productRequest.SegregationType;
+      CreatedAt = DateTime.Now;
+      ModifiedAt = DateTime.Now;
+    }
   }
 }
