@@ -8,17 +8,26 @@ using SMB.Infrastructure.Repositories;
 
 namespace SMB.Api.Controllers
 {
+  /// <summary>
+  /// Kontroler zapytań związanych z typami segregacji.
+  /// </summary>
   [Route("api/segregation-types")]
   [ApiController]
   public class SegregationTypesController : Controller
   {
     private readonly ISegregationTypeRepository _segregationTypeRepositoty;
-
+    /// <summary>
+    /// Konstruktor wstrzykujący zależność.
+    /// </summary>
+    /// <param name="segregationTypeRepositoty"></param>
     public SegregationTypesController(ISegregationTypeRepository segregationTypeRepositoty)
     {
       _segregationTypeRepositoty = segregationTypeRepositoty;
     }
-
+    /// <summary>
+    /// Metoda zwaracjąca wszystkie typy segragacji.
+    /// </summary>
+    /// <returns></returns>
     [HttpGet]
     public async Task<IEnumerable<SegregationTypeDto>> GetSegregations()
     {
@@ -27,7 +36,11 @@ namespace SMB.Api.Controllers
 
       return productsDto;
     }
-
+    /// <summary>
+    /// Metoda dodająca nowy typ segregacji.
+    /// </summary>
+    /// <param name="entity"></param>
+    /// <returns></returns>
     [HttpPost]
     public async Task InsertSegregation(NewSegregationTypeDto entity)
     {

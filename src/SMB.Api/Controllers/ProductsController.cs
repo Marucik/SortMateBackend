@@ -8,17 +8,26 @@ using System.Linq;
 
 namespace SMB.Api.Controllers
 {
+  /// <summary>
+  /// Kontroler zapytań związanych z produktami.
+  /// </summary>
   [Route("api/[controller]")]
   [ApiController]
   public class ProductsController : Controller
   {
     private readonly IProductRepository _productRepository;
-
+    /// <summary>
+    /// Konstruktor wstzrykujący zależność.
+    /// </summary>
+    /// <param name="productRepository"></param>
     public ProductsController(IProductRepository productRepository)
     {
       _productRepository = productRepository;
     }
-
+    /// <summary>
+    /// Metoda zwracająca wszystkie produkty.
+    /// </summary>
+    /// <returns></returns>
     [HttpGet]
     public async Task<IEnumerable<ProductDto>> GetProducts()
     {
@@ -27,7 +36,11 @@ namespace SMB.Api.Controllers
 
       return productsDto;
     }
-
+    /// <summary>
+    /// Metoda zwracająca produkt na podstawie przekazanego kodu.
+    /// </summary>
+    /// <param name="code"></param>
+    /// <returns></returns>
     [HttpGet]
     [Route("{code}")]
     public async Task<ActionResult<ProductDto>> GetProductByCode(string code)
@@ -44,7 +57,11 @@ namespace SMB.Api.Controllers
         return NotFound();
       }
     }
-
+    /// <summary>
+    /// Metoda dodająca przesłany produkt do bazy.
+    /// </summary>
+    /// <param name="entity"></param>
+    /// <returns></returns>
     [HttpPost]
     public async Task InsertProduct(NewProductDto entity)
     {

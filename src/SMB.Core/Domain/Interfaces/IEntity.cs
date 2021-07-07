@@ -1,7 +1,10 @@
 namespace SMB.Core.Domain.Interfaces
 {
-	public interface IEntity
-	{
+  /// <summary>
+  /// Interfejs wskazujący na "jednostkę" w bazie daych.
+  /// </summary>
+  public interface IEntity
+  {
 
-	}
+  }
 }

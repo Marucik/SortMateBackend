@@ -16,7 +16,7 @@ namespace SMB.Infrastructure.Repositories
     {
       _mongoDbSettings = mongoDbSettings;
       var database = client.GetDatabase(_mongoDbSettings.DatabaseName);
-      _collection = database.GetCollection<ProductRequest>("product_requests"); ;
+      _collection = database.GetCollection<ProductRequest>("product_requests");
     }
 
     public async Task<IEnumerable<ProductRequest>> GetAllAsync()

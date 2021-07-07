@@ -2,9 +2,12 @@ using System;
 
 namespace SMB.Core.Domain.Interfaces
 {
-	public interface ISegregationType
-	{
-		Guid Id { get; }
-		string Name { get; set; }
-	}
+  /// <summary>
+  /// Interfejs pojedynczego typu segregacji.
+  /// </summary>
+  public interface ISegregationType
+  {
+    Guid Id { get; }
+    string Name { get; set; }
+  }
 }

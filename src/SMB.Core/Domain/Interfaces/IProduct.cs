@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace SMB.Core.Domain.Interfaces
 {
+  /// <summary>
+  /// Interfejs pojedynczego produktu.
+  /// </summary>
   public interface IProduct
   {
     Guid Id { get; }
