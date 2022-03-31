@@ -70,10 +70,22 @@ namespace SMB.Api.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("{id}:accept")]
-        public async Task AcceptProductRequest(Guid id)
+        public async Task<ActionResult> AcceptProductRequest(Guid id)
         {
-            var acceptedProduct = await _productRequestRepository.FindAndDeleteByIdAsync(id);
-            await _productRepository.InsertAsync(new Product(acceptedProduct));
+            try
+            {
+                var userId = (String)Request.HttpContext.Items["UserId"];
+                if (userId == null) return Unauthorized();
+
+                var acceptedProduct = await _productRequestRepository.FindAndDeleteByIdAsync(id);
+                await _productRepository.InsertAsync(new Product(acceptedProduct));
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

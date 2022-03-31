@@ -26,18 +26,15 @@ namespace SMB.Api.Controllers
             _productRepository = productRepository;
         }
 
-        // /// <summary>
-        // /// Metoda zwracająca wszystkie produkty.
-        // /// </summary>
-        // /// <returns></returns>
-        // [HttpGet]
-        // public async Task<IEnumerable<ProductDto>> GetProducts()
-        // {
-        //   var products = await _productRepository.GetAllAsync();
-        //   var productsDto = products.Select(x => ProductDto.FromProduct(x));
-
-        //   return productsDto;
-        // }
+        /// <summary>
+        /// Metoda zwracająca wszystkie produkty.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IEnumerable<Product>> GetProducts()
+        {
+            return await _productRepository.GetAllAsync();
+        }
 
         /// <summary>
         /// Metoda zwracająca produkt na podstawie przekazanego kodu.
@@ -46,14 +43,11 @@ namespace SMB.Api.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("{code}")]
-        public async Task<ActionResult<ProductDto>> GetProductByCode(string code)
+        public async Task<ActionResult<Product>> GetProductByCode(string code)
         {
             try
             {
-                var product = await _productRepository.GetByCodeAsync(code);
-                var productDto = ProductDto.FromProduct(product);
-
-                return productDto;
+                return await _productRepository.GetByCodeAsync(code);
             }
             catch (System.Exception)
             {
