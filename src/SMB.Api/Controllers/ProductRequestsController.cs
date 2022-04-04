@@ -52,7 +52,7 @@ namespace SMB.Api.Controllers
         }
 
         /// <summary>
-        /// Metoda dodająca nowe rządanie dodania produktu do bazy.
+        /// Metoda dodająca nową propozycję produktu do bazy.
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>

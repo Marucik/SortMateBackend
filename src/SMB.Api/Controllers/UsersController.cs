@@ -42,6 +42,8 @@ namespace SMB.Api.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserCredentialsDto credentials)
         {
+            var userId = (String)Request.HttpContext.Items["UserId"];
+            if (userId == null) return Unauthorized();
 
             var user = new User
             {
