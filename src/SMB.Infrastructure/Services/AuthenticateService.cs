@@ -36,7 +36,6 @@ namespace SMB.Infrastructure.Services
         {
             var userId = user.Id;
 
-            // generate token that is valid for 7 days
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes("D117A25C-4895-428A-8EC0-221A93AFB653");
             var tokenDescriptor = new SecurityTokenDescriptor
