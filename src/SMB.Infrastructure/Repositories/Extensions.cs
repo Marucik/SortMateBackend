@@ -7,50 +7,57 @@ using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
 using SMB.Core.Domain;
 using SMB.Core.Domain.ProductRequest;
+using SMB.Core.Domain.User;
 using SMB.Infrastructure.Mongo;
 
 namespace SMB.Infrastructure.Repositories
 {
-  public static class Extensions
-  {
-    private static string _sectionName = "MongoDbSettings";
-
-    public static void AddMongoDb(this IServiceCollection services)
+    public static class Extensions
     {
-      using var serviceProvider = services.BuildServiceProvider();
-      var configuration = serviceProvider.GetService<IConfiguration>();
+        private static string _sectionName = "MongoDbSettings";
 
-      var mongoSettings = new MongoDbSettings();
-      configuration.GetSection(_sectionName).Bind(mongoSettings);
+        public static void AddMongoDb(this IServiceCollection services)
+        {
+            using var serviceProvider = services.BuildServiceProvider();
+            var configuration = serviceProvider.GetService<IConfiguration>();
 
-      services.AddSingleton(mongoSettings);
+            var mongoSettings = new MongoDbSettings();
+            configuration.GetSection(_sectionName).Bind(mongoSettings);
 
-      services.AddScoped<IMongoClient>(x =>
-      {
-        return new MongoClient(mongoSettings.ConnectionString);
-      });
+            services.AddSingleton(mongoSettings);
 
-      BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.String));
+            services.AddScoped<IMongoClient>(x =>
+            {
+                return new MongoClient(mongoSettings.ConnectionString);
+            });
 
-      BsonClassMap.RegisterClassMap<Product>(cm =>
-      {
-        cm.AutoMap();
-      });
+            BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.String));
 
-      BsonClassMap.RegisterClassMap<SegregationType>(cm =>
-      {
-        cm.AutoMap();
-      });
+            BsonClassMap.RegisterClassMap<Product>(cm =>
+            {
+                cm.AutoMap();
+            });
 
-      BsonClassMap.RegisterClassMap<ProductRequest>(cm =>
-      {
-        cm.AutoMap();
-      });
+            BsonClassMap.RegisterClassMap<SegregationType>(cm =>
+            {
+                cm.AutoMap();
+            });
 
-      services.AddScoped<IProductRepository, ProductRepository>();
-      services.AddScoped<ISegregationTypeRepository, SegregationTypeRepository>();
-      services.AddScoped<IProductRequestRepository, ProductRequestRepository>();
+            BsonClassMap.RegisterClassMap<ProductRequest>(cm =>
+            {
+                cm.AutoMap();
+            });
+
+            BsonClassMap.RegisterClassMap<User>(cm =>
+            {
+                cm.AutoMap();
+            });
+
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<ISegregationTypeRepository, SegregationTypeRepository>();
+            services.AddScoped<IProductRequestRepository, ProductRequestRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+        }
+
     }
-
-  }
 }
